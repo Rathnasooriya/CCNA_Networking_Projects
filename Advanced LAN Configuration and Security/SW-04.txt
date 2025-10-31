@@ -1,0 +1,54 @@
+Switch>enable
+Switch#conf t
+
+Switch(config)#hostname SW-04
+
+SW-04(config)#vlan 2
+SW-04(config-vlan)#name LAB-01
+SW-04(config-vlan)#exit
+
+SW-04(config)#interface range fastEthernet 0/1-5
+SW-04(config-if-range)#switchport mode access
+SW-04(config-if-range)#switchport access vlan 2
+SW-04(config-if-range)#exit
+
+SW-04(config)#vlan 3
+SW-04(config-vlan)#name LAB-02
+SW-04(config-vlan)#exit
+
+SW-04(config)#interface range fastEthernet 0/6-10
+SW-04(config-if-range)#switchport mode access
+SW-04(config-if-range)#switchport access vlan 3
+SW-04(config-if-range)#exit
+
+SW-04(config)#vlan 4
+SW-04(config-vlan)#name LAB-03
+SW-04(config-vlan)#exit
+
+SW-04(config)#interface range fastEthernet 0/11-15
+SW-04(config-if-range)#switchport mode access
+SW-04(config-if-range)#switchport access vlan 4
+SW-04(config-if-range)#exit
+
+SW-04(config)#interface gigabitEthernet 0/1
+SW-04(config-if)#switchport mode trunk
+SW-04(config-if)#switchport trunk native vlan 1
+SW-04(config-if)#switchport trunk allowed vlan 1,2,3,4
+SW-04(config-if)#exit
+
+SW-04(config)#interface range fastEthernet 0/16-24
+SW-04(config-if-range)#shutdown
+SW-04(config-if-range)#
+SW-04(config-if-range)#exit
+
+SW-04(config)#interface fastEthernet 0/1
+SW-04(config-if)#switchport mode access
+SW-04(config-if)#switchport port-security
+SW-04(config-if)#switchport port-security mac-address 0001.63CA.6907
+SW-04(config-if)#exit
+
+SW-04(config)#interface fastEthernet 0/2
+SW-04(config-if)#switchport mode access
+SW-04(config-if)#switchport port-security
+SW-04(config-if)#switchport port-security mac-address 0060.5C65.37A9
+SW-04(config-if)#exit

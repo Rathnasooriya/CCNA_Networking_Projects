@@ -1,0 +1,127 @@
+Router>enable
+
+Router#configure terminal 
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#hostname R-04
+
+R-04(config)#interface gigabitEthernet 0/0/0
+
+R-04(config-if)#Description SW-05 Link
+R-04(config-if)#ip address 172.16.4.62 255.255.255.192
+R-04(config-if)#ip help
+R-04(config-if)#ip helper-address 172.16.0.2
+R-04(config-if)#no shutdown
+
+R-04(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/0, changed state to up
+
+R-04(config-if)#exit
+R-04(config)#interface gigabitEthernet 0/0/1
+R-04(config-if)#Description SW-06 Link
+R-04(config-if)#ip address 172.16.4.190 255.255.255.192
+R-04(config-if)#ip helper-address 172.16.0.2
+R-04(config-if)#no shutdown
+
+R-04(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0/1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/1, changed state to up
+
+R-04(config-if)#exit
+R-04(config)#
+R-04(config)#
+R-04(config)#inter
+R-04(config)#interface se
+R-04(config)#interface serial 0/2/0
+R-04(config-if)#Description R-02 Link
+R-04(config-if)#ip address 172.16.5.185 255.255.255.252
+R-04(config-if)#no shutdown
+
+R-04(config-if)#
+%LINK-5-CHANGED: Interface Serial0/2/0, changed state to up
+
+R-04(config-if)#exit
+R-04(config)#
+
+R-04(config)#ip route 172.16.0.0 255.255.255.0 172.16.5.186
+R-04(config)#ip route 172.16.1.0 255.255.255.0 172.16.5.186
+R-04(config)#ip route 172.16.2.0 255.255.255.0 172.16.5.186
+R-04(config)#ip route 172.16.3.0 255.255.255.128 172.16.5.186
+R-04(config)#ip route 172.16.3.128 255.255.255.128 172.16.5.186
+R-04(config)#ip route 172.16.4.64 255.255.255.192 172.16.5.186
+R-04(config)#ip route 172.16.4.192 255.255.255.192 172.16.5.186
+R-04(config)#ip route 172.16.5.0 255.255.255.192 172.16.5.186
+R-04(config)#ip route 172.16.5.64 255.255.255.224 172.16.5.186
+R-04(config)#ip route 172.16.5.96 255.255.255.224 172.16.5.186
+R-04(config)#ip route 172.16.5.128 255.255.255.224 172.16.5.186
+R-04(config)#ip route 172.16.5.160 255.255.255.240 172.16.5.186
+R-04(config)#ip route 172.16.5.176 255.255.255.252 172.16.5.186
+R-04(config)#ip route 172.16.5.180 255.255.255.252 172.16.5.186
+R-04(config)#ip route 172.16.5.188 255.255.255.252 172.16.5.186
+R-04(config)#ip route 172.16.5.192 255.255.255.252 172.16.5.186
+R-04(config)#ip route 172.16.5.196 255.255.255.252 172.16.5.186
+R-04(config)#ip route 172.16.5.200 255.255.255.252 172.16.5.186
+R-04(config)#
+R-04(config)#exit
+R-04#
+%SYS-5-CONFIG_I: Configured from console by console
+
+R-04#copy r
+R-04#copy running-config st
+R-04#copy running-config startup-config 
+
+R-04#copy running-config tftp: 
+Address or name of remote host []? 172.16.0.2
+Destination filename [R-04-confg]? R-04-confg
+
+Writing running-config...!!
+[OK - 1860 bytes]
+
+1860 bytes copied in 0.003 secs (620000 bytes/sec)
+R-04#clock set 14:30:00 07 september 2025
+R-04#
+R-04#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R-04(config)#
+R-04(config)#banner motd *
+Enter TEXT message.  End with the character '*'.
+
+###################################################
+This is Secure area. Please Enter your Authentication.
+#################################################### *
+
+R-04(config)#
+R-04(config)#enable secret DilRu@2520.lk
+R-04(config)#
+R-04(config)#line console 0
+R-04(config-line)#
+R-04(config-line)#password DIlru@2540.lk
+R-04(config-line)#exec-timeout 20
+R-04(config-line)#login
+R-04(config-line)#exit
+R-04(config)#
+R-04(config)#security passwords min-length 10
+R-04(config)#ip domain-name sltsc.lk
+R-04(config)#crypto key generate rsa 
+The name for the keys will be: R-04.sltsc.lk
+Choose the size of the key modulus in the range of 360 to 4096 for your
+  General Purpose Keys. Choosing a key modulus greater than 512 may take
+  a few minutes.
+
+How many bits in the modulus [512]: 2048
+% Generating 2048 bit RSA keys, keys will be non-exportable...[OK]
+
+R-04(config)#username sshadmin secret Admin@$ltSc.Lk
+*Sep 7 14:30:4.665: %SSH-5-ENABLED: SSH 1.99 has been enabled
+R-04(config)#
+R-04(config)#line vty 0
+R-04(config-line)#transport input ssh
+R-04(config-line)#login local 
+R-04(config-line)#exec-timeout 20
+R-04(config-line)#login local 
+R-04(config-line)#exit
+R-04(config)#
+R-04(config)#login block-for 900 attempts 2 within 60gin block-for 900 attempts 2 within 60
+R-04(config)#

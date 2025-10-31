@@ -1,0 +1,38 @@
+enable
+
+clock set 23:15:00 28 October 2025
+
+conf t
+
+banner motd *
+
+########################################################
+  This is Secure area. Please Enter your Authentication.
+######################################################## *
+
+enable secret Dilru@2024.lk
+
+line console 0
+password dIlru@2024.lk
+exec-timeout 10
+login
+exit
+
+username Admin secret dilruFirst@SlTsc.lk
+ip domain-name sltsc.lk
+crypto key generate rsa 
+
+1028
+
+line vty 0
+transport input ssh
+login local 
+exec-timeout 10
+exit
+
+service password-encryption
+
+security passwords min-length 08
+
+login block-for 900 attempts 2 within 60
+

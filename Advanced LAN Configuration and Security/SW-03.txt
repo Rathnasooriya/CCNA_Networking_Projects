@@ -1,0 +1,31 @@
+R-03>enable
+R-03#conf t
+
+R-03(config)#hostname SW-03
+
+SW-03(config)#interface range fastEthernet 0/20-21
+SW-03(config-if-range)#description etherchannel LACP operation
+SW-03(config-if-range)#channel-group 1 mode active
+SW-03(config-if-range)#speed auto
+SW-03(config-if-range)#duplex full
+SW-03(config-if-range)#mdix auto
+SW-03(config-if-range)#exit
+
+SW-03(config)#interface range fastEthernet 0/22-23
+SW-03(config-if-range)#description etherchannel LACP operation
+SW-03(config-if-range)#channel-group 2 mode active
+SW-03(config-if-range)#speed auto
+SW-03(config-if-range)#duplex full
+SW-03(config-if-range)#mdix auto
+SW-03(config-if-range)#exit
+
+SW-03(config)#spanning-tree vlan 1 root primary
+
+SW-03(config)#interface range fastEthernet 0/1-19
+SW-03(config-if-range)#shutdown
+
+SW-03(config-if-range)#exit
+
+SW-03(config)#interface fastEthernet 0/24
+SW-03(config-if)#shutdown
+SW-03(config-if)#exit

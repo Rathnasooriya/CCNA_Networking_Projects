@@ -1,0 +1,24 @@
+Switch>enable
+Switch#conf t
+
+Switch(config)#hostname SW-08
+
+SW-08(config)#interface range fastEthernet 0/3-24
+SW-08(config-if-range)#shutdown
+SW-08(config-if-range)#exit
+
+SW-08(config)#interface fastEthernet 0/1
+SW-08(config-if)#switchport mode access
+SW-08(config-if)#switchport port-security
+SW-08(config-if)#switchport port-security mac-address 000C.85E2.9E73
+SW-08(config-if)#exit
+
+SW-08(config)#interface fastEthernet 0/2
+SW-08(config-if)#switchport mode access
+SW-08(config-if)#switchport port-security
+SW-08(config-if)#switchport port-security mac-address 0001.C735.D971
+SW-08(config-if)#exit
+
+SW-08(config)#exit
+
+SW-08#show mac-address-table

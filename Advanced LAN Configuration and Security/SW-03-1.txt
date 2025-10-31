@@ -1,0 +1,20 @@
+Switch>enable
+Switch#conf t
+
+Switch(config)#hostname SW-03-1
+
+SW-03-1(config)#interface range fastEthernet 0/20-21
+SW-03-1(config-if-range)#description etherchannel LACP operation
+SW-03-1(config-if-range)#channel-group 1 mode active
+SW-03-1(config-if-range)#speed auto
+SW-03-1(config-if-range)#duplex full
+SW-03-1(config-if-range)#mdix auto
+SW-03-1(config-if-range)#exit
+
+SW-03-1(config)#interface range fastEthernet 0/22-23
+SW-03-1(config-if-range)#description etherchannel LACP operation
+SW-03-1(config-if-range)#channel-group 2 mode active
+SW-03-1(config-if-range)#speed auto
+SW-03-1(config-if-range)#duplex full
+SW-03-1(config-if-range)#mdix auto
+SW-03-1(config-if-range)#exit

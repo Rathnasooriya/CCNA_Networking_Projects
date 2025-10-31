@@ -1,0 +1,23 @@
+Switch>enable
+Switch#conf t
+
+Switch(config)#hostname SW-02
+SW-02(config)#interface range fastEthernet 0/3-24
+SW-02(config-if-range)#shutdown
+SW-02(config-if-range)#exit
+
+SW-02(config)#interface fastEthernet 0/1
+SW-02(config-if)#switchport mode access
+SW-02(config-if)#switchport port-security
+SW-02(config-if)#switchport port-security mac-address 0001.6485.5766
+SW-02(config-if)#exit
+
+SW-02(config)#interface fastEthernet 0/2
+SW-02(config-if)#switchport mode access
+SW-02(config-if)#switchport port-security
+SW-02(config-if)#switchport port-security mac-address 00D0.BA19.6E72
+SW-02(config-if)#exit
+
+SW-02(config)#exit
+
+SW-02#show mac-address-table
